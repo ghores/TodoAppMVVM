@@ -1,11 +1,11 @@
 package com.example.todoapp.ui.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.todoapp.R
@@ -56,7 +56,8 @@ class MainActivity : AppCompatActivity() {
                 showEmpty(it.isEmpty)
                 notesAdapter.setData(it.data!!)
                 noteList.apply {
-                    layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+                    layoutManager =
+                        StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
                     adapter = notesAdapter
                 }
             }
@@ -67,6 +68,7 @@ class MainActivity : AppCompatActivity() {
                         priorityFilter()
                         return@setOnMenuItemClickListener true
                     }
+
                     else -> {
                         return@setOnMenuItemClickListener false
                     }
@@ -82,6 +84,7 @@ class MainActivity : AppCompatActivity() {
                         noteFragment.arguments = bundle
                         noteFragment.show(supportFragmentManager, NoteFragment().tag)
                     }
+
                     DELETE -> {
                         noteEntity.id = entity.id
                         noteEntity.title = entity.title
@@ -135,6 +138,7 @@ class MainActivity : AppCompatActivity() {
                 0 -> {
                     viewModel.getAllNotes()
                 }
+
                 in 1..3 -> {
                     viewModel.getFilterNotes(priority[item])
                 }

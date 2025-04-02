@@ -20,6 +20,7 @@ class MainViewModel @Inject constructor(private val repository: MainRepository) 
             notesData.postValue(DataStatus.success(it, it.isEmpty()))
         }
     }
+
     fun getSearchNotes(search: String) = viewModelScope.launch {
         repository.searchNotes(search).collect {
             notesData.postValue(DataStatus.success(it, it.isEmpty()))

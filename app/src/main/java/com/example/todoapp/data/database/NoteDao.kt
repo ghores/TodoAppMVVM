@@ -28,7 +28,7 @@ interface NoteDao {
     fun getNote(id: Int): Flow<NoteEntity>
 
     @Query("SELECT * FROM $NOTE_TABLE WHERE priority == :priority")
-    fun filetNote(priority: String): Flow<MutableList<NoteEntity>>
+    fun filterNote(priority: String): Flow<MutableList<NoteEntity>>
 
     @Query("SELECT * FROM $NOTE_TABLE WHERE title LIKE '%' || :title || '%' ")
     fun searchNote(title: String): Flow<MutableList<NoteEntity>>

@@ -23,10 +23,11 @@ import com.example.todoapp.utils.WORK
 import javax.inject.Inject
 
 class NoteAdapter @Inject constructor() : RecyclerView.Adapter<NoteAdapter.ViewHolder>() {
-
+    //Binding
     private lateinit var binding: ItemNotesBinding
     private lateinit var context: Context
     private var moviesList = emptyList<NoteEntity>()
+    private var onItemClickListener: ((NoteEntity, String) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         binding = ItemNotesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -44,7 +45,6 @@ class NoteAdapter @Inject constructor() : RecyclerView.Adapter<NoteAdapter.ViewH
     override fun getItemCount() = moviesList.size
 
     inner class ViewHolder : RecyclerView.ViewHolder(binding.root) {
-
         @SuppressLint("SetTextI18n")
         fun bind(item: NoteEntity) {
             binding.apply {
@@ -88,8 +88,6 @@ class NoteAdapter @Inject constructor() : RecyclerView.Adapter<NoteAdapter.ViewH
             }
         }
     }
-
-    private var onItemClickListener: ((NoteEntity, String) -> Unit)? = null
 
     fun setOnItemClickListener(listener: (NoteEntity, String) -> Unit) {
         onItemClickListener = listener

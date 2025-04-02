@@ -4,17 +4,17 @@
     android:layout_width="wrap_content"
     android:layout_height="40dp"
     android:layout_margin="4dp"
-    android:paddingHorizontal="10dp"
     android:background="@drawable/bg_rounded_white"
-    android:elevation="2dp">
+    android:elevation="2dp"
+    android:paddingHorizontal="10dp">
     <!--Img-->
     <ImageView
         android:id="@+id/itemCategoriesImg"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
     <!--Txt-->
     <TextView
         android:id="@+id/itemCategoriesTxt"

@@ -90,11 +90,9 @@ class NoteFragment : BottomSheetDialogFragment() {
                 entity.desc = desc
                 entity.category = category
                 entity.priority = priority
-
                 if (title.isNotEmpty() && desc.isNotEmpty()) {
                     viewModel.saveEditNote(isEdit, entity)
                 }
-
                 dismiss()
             }
         }
