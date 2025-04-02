@@ -12,11 +12,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(private val repository: MainRepository) : ViewModel() {
-
-    var notesData = MutableLiveData<DataStatus<List<NoteEntity>>>()
+    var notesData = MutableLiveData<DataStatus<MutableList<NoteEntity>>>()
 
     fun getAllNotes() = viewModelScope.launch {
-        repository.allNotes().collect {
+        repository.getAllNotes().collect {
             notesData.postValue(DataStatus.success(it, it.isEmpty()))
         }
     }

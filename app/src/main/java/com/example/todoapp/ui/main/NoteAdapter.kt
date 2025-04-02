@@ -26,7 +26,7 @@ class NoteAdapter @Inject constructor() : RecyclerView.Adapter<NoteAdapter.ViewH
     //Binding
     private lateinit var binding: ItemNotesBinding
     private lateinit var context: Context
-    private var moviesList = emptyList<NoteEntity>()
+    private var noteList = emptyList<NoteEntity>()
     private var onItemClickListener: ((NoteEntity, String) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -37,12 +37,12 @@ class NoteAdapter @Inject constructor() : RecyclerView.Adapter<NoteAdapter.ViewH
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         //getItem from PagingDataAdapter
-        holder.bind(moviesList[position])
+        holder.bind(noteList[position])
         //Not duplicate items
         holder.setIsRecyclable(false)
     }
 
-    override fun getItemCount() = moviesList.size
+    override fun getItemCount(): Int = noteList.size
 
     inner class ViewHolder : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
@@ -94,9 +94,9 @@ class NoteAdapter @Inject constructor() : RecyclerView.Adapter<NoteAdapter.ViewH
     }
 
     fun setData(data: List<NoteEntity>) {
-        val moviesDiffUtil = NotesDiffUtils(moviesList, data)
+        val moviesDiffUtil = NotesDiffUtils(noteList, data)
         val diffUtils = DiffUtil.calculateDiff(moviesDiffUtil)
-        moviesList = data
+        noteList = data
         diffUtils.dispatchUpdatesTo(this)
     }
 

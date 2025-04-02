@@ -18,4 +18,5 @@
     <string name="measure">Measure</string>
     <string name="home">Home</string>
     <string name="favorite">Favorite</string>
+    <string name="fillAllFields">Title and description cannot be empty</string>
 </resources>

@@ -1,8 +1,10 @@
 package com.example.todoapp.ui.main
 
+import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +14,7 @@ import com.example.todoapp.R
 import com.example.todoapp.data.model.NoteEntity
 import com.example.todoapp.databinding.ActivityMainBinding
 import com.example.todoapp.ui.main.note.NoteFragment
+import com.example.todoapp.utils.ALL
 import com.example.todoapp.utils.BUNDLE_ID
 import com.example.todoapp.utils.DELETE
 import com.example.todoapp.utils.EDIT
@@ -19,6 +22,7 @@ import com.example.todoapp.utils.HIGH
 import com.example.todoapp.utils.LOW
 import com.example.todoapp.utils.NORMAL
 import com.example.todoapp.viewmodel.MainViewModel
+import com.google.android.material.internal.ViewUtils.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -56,8 +60,7 @@ class MainActivity : AppCompatActivity() {
                 showEmpty(it.isEmpty)
                 notesAdapter.setData(it.data!!)
                 noteList.apply {
-                    layoutManager =
-                        StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+                    layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
                     adapter = notesAdapter
                 }
             }
@@ -118,7 +121,8 @@ class MainActivity : AppCompatActivity() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
             override fun onQueryTextSubmit(query: String): Boolean {
-                return false
+                hideKeyboard()
+                return true
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
@@ -131,8 +135,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun priorityFilter() {
         val builder = AlertDialog.Builder(this)
-
-        val priority = arrayOf("All", HIGH, NORMAL, LOW)
+        val priority = arrayOf(ALL, HIGH, NORMAL, LOW)
         builder.setSingleChoiceItems(priority, selectedItem) { dialog, item ->
             when (item) {
                 0 -> {
@@ -148,6 +151,11 @@ class MainActivity : AppCompatActivity() {
         }
         val dialog: AlertDialog = builder.create()
         dialog.show()
+    }
+
+    private fun hideKeyboard() {
+        val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
     }
 
     override fun onDestroy() {

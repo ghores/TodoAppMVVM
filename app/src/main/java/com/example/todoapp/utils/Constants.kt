@@ -8,6 +8,7 @@ const val EDUCATION = "Education"
 const val HOME = "Home"
 const val HEALTH = "Health"
 
+const val ALL = "All"
 const val HIGH = "High"
 const val NORMAL = "Normal"
 const val LOW = "Low"

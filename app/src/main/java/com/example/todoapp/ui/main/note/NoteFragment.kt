@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.example.todoapp.R
 import com.example.todoapp.data.model.NoteEntity
 import com.example.todoapp.databinding.FragmentNoteBinding
 import com.example.todoapp.utils.BUNDLE_ID
@@ -14,6 +15,7 @@ import com.example.todoapp.utils.getIndexFromList
 import com.example.todoapp.utils.setupListWithAdapter
 import com.example.todoapp.viewmodel.NoteViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -56,18 +58,24 @@ class NoteFragment : BottomSheetDialogFragment() {
         //InitViews
         binding?.apply {
             //Close
-            closeImg.setOnClickListener { dismiss() }
+            closeImg.setOnClickListener {
+                dismiss()
+            }
             //Spinner Category
             viewModel.loadCategoriesData()
             viewModel.categoriesList.observe(viewLifecycleOwner) {
                 categoriesList.addAll(it)
-                categoriesSpinner.setupListWithAdapter(it) { itItem -> category = itItem }
+                categoriesSpinner.setupListWithAdapter(it) { categoryItem ->
+                    category = categoryItem
+                }
             }
             //Spinner priority
             viewModel.loadPrioritiesData()
             viewModel.prioritiesList.observe(viewLifecycleOwner) {
                 prioriesList.addAll(it)
-                prioritySpinner.setupListWithAdapter(it) { itItem -> priority = itItem }
+                prioritySpinner.setupListWithAdapter(it) { priorityItem ->
+                    priority = priorityItem
+                }
             }
             //Note data
             if (type == EDIT) {
@@ -92,6 +100,9 @@ class NoteFragment : BottomSheetDialogFragment() {
                 entity.priority = priority
                 if (title.isNotEmpty() && desc.isNotEmpty()) {
                     viewModel.saveEditNote(isEdit, entity)
+                } else {
+                    Snackbar.make(dialog?.window?.decorView ?: it, getString(R.string.fillAllFields), Snackbar.LENGTH_SHORT).show()
+                    return@setOnClickListener
                 }
                 dismiss()
             }
